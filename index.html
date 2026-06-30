@@ -1,29 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="styles.css">
+<title>Tree Canopy Calculator</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f4f4;
+    padding:16px;
+}
+
+.card{
+
+    max-width:1200px;
+    margin:auto;
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+/* ---------- TOP ---------- */
+
+.top{
+
+    padding:26px 28px 40px;
+
+}
+
+h1{
+
+    text-align:center;
+    font-size:26px;
+    margin-bottom:18px;
+
+}
+
+.percent{
+
+    font-size:20px;
+    margin-bottom:16px;
+
+}
+
+.slider-wrap{
+
+    position:relative;
+
+}
+
+input[type=range]{
+
+    -webkit-appearance:none;
+
+    width:100%;
+
+    background:transparent;
+
+}
+
+/* Track */
+
+input[type=range]::-webkit-slider-runnable-track{
+
+    height:4px;
+
+    background:#d7d7d7;
+
+    border-radius:50px;
+
+}
+
+input[type=range]::-moz-range-track{
+
+    height:4px;
+
+    background:#d7d7d7;
+
+}
+
+/* Thumb */
+
+input[type=range]::-webkit-slider-thumb{
+
+    -webkit-appearance:none;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:#000;
+
+    margin-top:-7px;
+
+    cursor:pointer;
+
+}
+
+input[type=range]::-moz-range-thumb{
+
+    width:18px;
+
+    height:18px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#000;
+
+}
+
+/* Filled track */
+
+.track-fill{
+
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    height:4px;
+
+    background:black;
+
+    border-radius:10px;
+
+    pointer-events:none;
+
+}
+
+.tick-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:18px;
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+/* ---------- RESULT ---------- */
+
+.result{
+
+    background:#ff6666;
+
+    color:white;
+
+    padding:18px 22px;
+
+}
+
+.result-title{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+}
+
+.answer{
+
+    font-size:54px;
+
+    font-weight:bold;
+
+    transition:.15s;
+
+}
+
+.footer{
+
+    background:#fff0f0;
+
+    padding:18px 22px;
+
+    font-size:20px;
+
+}
+
+@media(max-width:700px){
+
+    .answer{
+
+        font-size:38px;
+
+    }
+
+    h1{
+
+        font-size:22px;
+
+    }
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-<div class="calculator-container">
+<div class="card">
 
-    <iframe
-        src="https://app.calconic.com/api/embed/calculator/6a43d2420449c90030f5dcff"
-        sandbox="allow-same-origin allow-forms allow-scripts allow-top-navigation allow-popups-to-escape-sandbox allow-popups"
-        title="Calconic Calculator"
-        name="Calconic Calculator"
-        height="320"
-        scrolling="no"
-        style="width:100%;border:0;outline:none;">
-    </iframe>
+<div class="top">
+
+<h1>Tree Canopy %</h1>
+
+<div class="percent">
+
+<span id="percent">25</span> %
 
 </div>
 
-<script src="script.js"></script>
+<div class="slider-wrap">
+
+<div class="track-fill" id="fill"></div>
+
+<input
+id="slider"
+type="range"
+min="0"
+max="100"
+step="1"
+value="25">
+
+</div>
+
+<div class="tick-row">
+
+<span>0</span>
+<span>25</span>
+<span>50</span>
+<span>75</span>
+<span>100</span>
+
+</div>
+
+</div>
+
+<div class="result">
+
+<div class="result-title">
+
+Temperature Reduction
+
+</div>
+
+<div class="answer">
+
+<span id="temp">0.75</span> °C
+
+</div>
+
+</div>
+
+<div class="footer">
+
+Temperature reduction is compared to rural areas
+
+</div>
+
+</div>
+
+<script>
+
+const slider=document.getElementById("slider");
+const percent=document.getElementById("percent");
+const temp=document.getElementById("temp");
+const fill=document.getElementById("fill");
+
+function update(){
+
+    const value=Number(slider.value);
+
+    percent.textContent=value;
+
+    const reduction=value*0.03;
+
+    temp.textContent=reduction.toFixed(2);
+
+    const pct=value/100;
+
+    fill.style.width=(pct*100)+"%";
+
+}
+
+slider.addEventListener("input",update);
+
+update();
+
+</script>
 
 </body>
 </html>
