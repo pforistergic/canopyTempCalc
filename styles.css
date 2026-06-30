@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.calculator-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+iframe {
+    display: block;
+    width: 100%;
+    border: none;
+}
